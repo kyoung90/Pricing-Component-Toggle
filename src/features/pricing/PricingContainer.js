@@ -1,18 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
 import { PricingCard } from "./PricingCard";
+import { pricings } from "../../commons/pricingText";
 
 export const PricingContainer = () => {
+  const [toggle, setToggle] = useState("monthly");
+
+  const handleClick = () => {
+    setToggle(toggle == "monthly" ? "anually" : "monthly");
+  };
+
   return (
-    <div>
-      <h3>Our Pricing</h3>
-      <div>
+    <div className="pricing-container">
+      <h1 className="page-title">Our Pricing</h1>
+      <div className="toggle-group">
         <p>Annually</p>
-        <div></div>
+        <div className={`toggle toggle-${toggle}`} onClick={handleClick}>
+          <div className="toggle-circle"></div>
+        </div>
         <p>Monthly</p>
       </div>
-      <PricingCard planName="Basic" price="19.99" storage="500 GB" usersAllowed="2" maxSend="3 GB" />
-      <PricingCard planName="Professional" price="24.99" storage="1 TB" usersAllowed="5" maxSend="10 GB"/>
-      <PricingCard planName="Master"price="39.99" storage="2 TB" usersAllowed="10" maxSend="20 GB"/>
+      <div className="card-group">
+        <PricingCard
+          planName={pricings[toggle]["basic"]["planName"]}
+          price={pricings[toggle]["basic"]["price"]}
+          storage={pricings[toggle]["basic"]["storage"]}
+          usersAllowed={pricings[toggle]["basic"]["usersAllowed"]}
+          maxSend={pricings[toggle]["basic"]["maxSend"]}
+          border={pricings[toggle]["basic"]["border"]}
+        />
+        <PricingCard
+          planName={pricings[toggle]["professional"]["planName"]}
+          price={pricings[toggle]["professional"]["price"]}
+          storage={pricings[toggle]["professional"]["storage"]}
+          usersAllowed={pricings[toggle]["professional"]["usersAllowed"]}
+          maxSend={pricings[toggle]["professional"]["maxSend"]}
+          border={pricings[toggle]["professional"]["border"]}
+          invert="invert"
+        />
+        <PricingCard
+          planName={pricings[toggle]["master"]["planName"]}
+          price={pricings[toggle]["master"]["price"]}
+          storage={pricings[toggle]["master"]["storage"]}
+          usersAllowed={pricings[toggle]["master"]["usersAllowed"]}
+          maxSend={pricings[toggle]["master"]["maxSend"]}
+          border={pricings[toggle]["master"]["border"]}
+        />
+      </div>
     </div>
   );
 };
